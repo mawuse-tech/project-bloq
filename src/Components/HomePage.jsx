@@ -1,7 +1,19 @@
+import { useState } from 'react';
 import { useOutletContext } from 'react-router';
 
 const HomePage = () => {
   const { bloqs } = useOutletContext();
+  const [likes, setLikes] = useState([]);
+
+  const toggleLikedIcon = (bloqq) =>{
+    const isLiked = likes.find(like => like.id === bloqq.id);
+
+    if(isLiked){
+      setLikes(likes.filter(like => like.id !== bloqq.id ));
+    }else{
+      setLikes([...likes,{bloqq}])
+    }
+  }
 
   return (
     <div>
