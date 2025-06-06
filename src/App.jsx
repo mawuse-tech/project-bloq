@@ -4,6 +4,7 @@ import AddPage from './Components/AddPage'
 import BloqPage from './Components/BloqPage'
 import HomePage from './Components/HomePage'
 import RootLayout from './Components/RootLayout'
+import FullBloq from './Components/FullBloq'
 
 const router = createBrowserRouter(([
   {
@@ -22,10 +23,16 @@ const router = createBrowserRouter(([
 
       {
         path: "bloq",
-        Component: BloqPage
+        Component: BloqPage,
+        children: [
+          {
+            path: "full",
+            Component: FullBloq
+          }
+        ]
       },
 
-    
+
     ]
   }
 

@@ -1,76 +1,72 @@
-
-import React, { useState } from 'react'
-import { useOutletContext } from 'react-router'
+// BloqPage.jsx
+import React from 'react';
+import { Link, Outlet, useOutletContext } from 'react-router-dom';
 import 'remixicon/fonts/remixicon.css';
 
 const BloqPage = () => {
   const { bloqs, setBloqs, likes, setLikes } = useOutletContext();
-  const [selectedBloq, setSelectedBloq] = useState(null);
 
-  //  toggle function
   const toggleLikedIcon = (bloqq) => {
     const isLiked = likes.find(like => like.id === bloqq.id);
-
     if (isLiked) {
       setLikes(likes.filter(like => like.id !== bloqq.id));
-      alert('bloq removed from your favorite')
+      alert('bloq removed from your favorite');
     } else {
-      setLikes([...likes, bloqq])
-      alert('bloq added to your favorite')
+      setLikes([...likes, bloqq]);
+      alert('bloq added to your favorite');
     }
-    
-  }
-
-  const isLikedId = (likeId) => {
-    return likes.some(item => item.id === likeId);
   };
 
-  // delete function
+  const isLikedId = (likeId) => likes.some(item => item.id === likeId);
+
   const deleteFunction = (bloqId) => {
-  const isConfirmed = window.confirm('Delete?');
-  if (isConfirmed) {
-    setBloqs(prevBloqs => prevBloqs.filter(bloq => bloq.id !== bloqId));
-    setLikes(prevLikes => prevLikes.filter(like => like.id !== bloqId));
-  }
-};
+    const isConfirmed = window.confirm('Delete?');
+    if (isConfirmed) {
+      setBloqs(prev => prev.filter(bloq => bloq.id !== bloqId));
+      setLikes(prev => prev.filter(like => like.id !== bloqId));
+    }
+  };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Top Stories</h2>
-
-      <ul className="space-y-6">
+    <div className="flex md:flex-row flex-col gap-4 p-6">
+      <div className="md:w-1/2 w-full space-y-6">
         {bloqs.map((bloq) => (
-          <li onClick={() => selectedBloq(bloq)}
-            key={bloq.id}
-            className="p-5 border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-          >
-            <strong className="block text-xl font-semibold text-gray-700 mb-2">
-              {bloq.tit}
-            </strong>
-            <p className="text-gray-600 mb-4">{bloq.des}</p>
+          <div key={bloq.id} className="border rounded-lg p-4 shadow hover:shadow-md">
+
+            <Link to="full">
+              <strong className="block text-xl font-semibold text-gray-700 mb-2">{bloq.tit}</strong>
+              <p className="text-gray-600 mb-4">
+                {bloq.des.length > 100 ? bloq.des.slice(0, 30) + '...' : bloq.des}
+              </p>
+            </Link>
 
             <div className="flex gap-3">
               <button
                 onClick={() => toggleLikedIcon(bloq)}
-                className="px-4 py-2 text-sm rounded-md font-medium"
+                className="text-sm"
               >
-                {isLikedId(bloq.id) ? <i className="ri-heart-fill text-red-700 text-2xl"></i> : <i className="ri-heart-line text-2xl"></i>}
+                {isLikedId(bloq.id)
+                  ? <i className="ri-heart-fill text-red-600 text-xl"></i>
+                  : <i className="ri-heart-line text-xl"></i>}
               </button>
-
 
               <button
                 onClick={() => deleteFunction(bloq.id)}
-                className="px-4 py-2 text-sm bg-gray-100 text-gray-800 rounded-md hover:bg-gray-200"
+                className="text-gray-600 hover:text-red-600"
               >
-                <i class="ri-delete-bin-6-line text-2xl"></i>
+                <i className="ri-delete-bin-6-line text-xl"></i>
               </button>
             </div>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
+
+      {/* Right panel */}
+      <div className="md:w-1/2 w-full border-l pl-4">
+        <Outlet context={{ bloqs, setBloqs, likes, setLikes }}/>
+      </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default BloqPage
+export default BloqPage;

@@ -11,7 +11,6 @@ const [likes, setLikes] = useState([]);
         <div>
             <Navbar />
             <Outlet context={{bloqs, setBloqs, likes, setLikes}}/>
-
         </div>
     )
 }
