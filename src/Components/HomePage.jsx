@@ -2,18 +2,7 @@ import { useState } from 'react';
 import { useOutletContext } from 'react-router';
 
 const HomePage = () => {
-  const { bloqs } = useOutletContext();
-  const [likes, setLikes] = useState([]);
-
-  const toggleLikedIcon = (bloqq) =>{
-    const isLiked = likes.find(like => like.id === bloqq.id);
-
-    if(isLiked){
-      setLikes(likes.filter(like => like.id !== bloqq.id ));
-    }else{
-      setLikes([...likes,{bloqq}])
-    }
-  }
+  const { bloqs, likes, setLikes} = useOutletContext();
 
   return (
     <div>
@@ -26,6 +15,22 @@ const HomePage = () => {
           </li>
         ))}
       </ul>
+
+      <div>
+        <h3>Your Favorites</h3>
+   {likes.length === 0 ? (
+    <p>you have no favorites yet</p>
+   ): (
+    likes.map(like => (
+      <ul>
+        <li key={like.id}>
+          <strong>{like.tit}</strong>
+          <p>{like.des}</p>
+        </li>
+      </ul>
+    ))
+   )}
+      </div>
     </div>
   );
 };
