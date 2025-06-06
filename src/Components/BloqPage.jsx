@@ -36,7 +36,7 @@ const BloqPage = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">📰 Top Stories</h2>
+      <h2 className="text-2xl font-bold mb-6 text-gray-800">Top Stories</h2>
 
       <ul className="space-y-6">
         {bloqs.map((bloq) => (
