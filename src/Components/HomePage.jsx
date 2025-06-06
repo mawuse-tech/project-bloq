@@ -22,7 +22,7 @@ const HomePage = () => {
     <p>you have no favorites yet</p>
    ): (
     likes.map(like => (
-      <ul>
+      <ul key={like.id}>
         <li key={like.id}>
           <strong>{like.tit}</strong>
           <p>{like.des}</p>
