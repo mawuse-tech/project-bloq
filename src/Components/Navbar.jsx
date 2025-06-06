@@ -1,22 +1,50 @@
-
-import React from 'react'
-import { Link, NavLink } from 'react-router'
+import React from 'react';
+import { NavLink, Link } from 'react-router';
 
 const Navbar = () => {
     return (
-        <div>
-            <nav className='flex justify-between items-center text-xl bg-amber-900 p-5'>
-                <span className='text-white'>LOGO</span>
+        <nav className="bg-amber-900 text-white p-5 shadow-md">
+            <div className="max-w-6xl mx-auto flex justify-between items-center">
+                <span className="text-2xl font-bold tracking-wide">LOGO</span>
 
-                <ul className='flex gap-4 text-white justify-around'>
-                    <NavLink to="/">Home</NavLink>
-                    <Link to="/bloq">Bloq</Link>
-                    <Link to="/add">Add New</Link>
-                
+                <ul className="flex gap-6 text-lg font-medium">
+                    <NavLink to="/" >
+                        Home
+                    </NavLink>
+
+                    <NavLink to="/bloq">
+                        Bloq
+                    </NavLink>
+
+                    <NavLink to="/add" >
+                        Add New
+                    </NavLink>
                 </ul>
-            </nav>
-        </div>
-    )
-}
+            </div>
+        </nav>
+    );
+};
 
-export default Navbar
+export default Navbar;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//  <NavLink
+//             to="/add"
+//             className={({ isActive }) =>
+//               isActive ? 'underline underline-offset-4' : 'hover:text-yellow-300'
+//             }
+//           >
+//             Add New
+//           </NavLink>
