@@ -16,7 +16,7 @@ const HomePage = () => {
             <h2 className="text-xl font-semibold text-gray-800 mb-2">
               {bloq.title}
             </h2>
-            <p className="text-gray-600">{bloq.desc}</p>
+            <p className="text-gray-600">{bloq.description}</p>
           </div>
         ))}
       </div>

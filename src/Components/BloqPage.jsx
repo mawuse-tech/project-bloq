@@ -36,7 +36,7 @@ const BloqPage = () => {
             <Link to="full">
               <strong className="block text-xl font-semibold text-gray-700 mb-2">{bloq.title}</strong>
               <p className="text-gray-600 mb-4">
-                {bloq.description.length > 100 ? bloq.des.slice(0, 100) + '...' : bloq.description}
+                {bloq.description.length > 100 ? bloq.description.slice(0, 100) + '...' : bloq.description}
               </p>
             </Link>
 
