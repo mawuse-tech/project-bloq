@@ -1,27 +1,24 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useOutletContext } from 'react-router';
 
 const AddPage = () => {
-    const { bloqs, setBloqs } = useOutletContext();
-    const [input, setInput] = useState("");
-    const [textarea, setTextarea] = useState("");
+    const { setBloqs, API_URL } = useOutletContext();
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
 
-    const addBloqs = (title, description) => {
-        const newBloqs = {
-            id: bloqs.length + 1,
-            tit: title,
-            des: description,
-        };
-        setBloqs(prev => [...prev, newBloqs]);
-        alert('bloq added succesfully')
-    };
 
-    const handleSubmit = (e) => {
+    async function handleSubmit(e) {
         e.preventDefault();
-        if (input.trim() !== "" && textarea.trim() !== "") {
-            addBloqs(input, textarea);
-            setInput("");      // Clear input
-            setTextarea("");   // Clear textarea
+        if (title.trim() !== "" && description.trim() !== "") {
+            try {
+                const res = await axios.post(API_URL, {title, description});
+                setBloqs(prev => [...prev, res.data])
+                setTitle("");      // Clear input
+                setDescription("");   // Clear textarea
+            } catch (error) {
+                console.log(error)
+            }
         }
     };
 
@@ -35,16 +32,17 @@ const AddPage = () => {
 
                 <input
                     type="text"
+                    name='title'
                     placeholder="Enter title"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                     className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
 
                 <textarea
                     placeholder="Enter description"
-                    value={textarea}
-                    onChange={(e) => setTextarea(e.target.value)}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                     className="w-full border border-gray-300 rounded-md px-4 py-2 h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
                 ></textarea>
 

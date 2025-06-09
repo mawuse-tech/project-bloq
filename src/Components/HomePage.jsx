@@ -14,9 +14,9 @@ const HomePage = () => {
             className="bg-white shadow-md p-4 rounded-md border border-gray-100"
           >
             <h2 className="text-xl font-semibold text-gray-800 mb-2">
-              {bloq.tit}
+              {bloq.title}
             </h2>
-            <p className="text-gray-600">{bloq.des}</p>
+            <p className="text-gray-600">{bloq.desc}</p>
           </div>
         ))}
       </div>
@@ -33,9 +33,9 @@ const HomePage = () => {
                 className="bg-yellow-50 border border-yellow-200 shadow-sm p-4 rounded-md"
               >
                 <h4 className="text-lg font-semibold text-yellow-800 mb-1">
-                  {like.tit}
+                  {like.title}
                 </h4>
-                <p className="text-yellow-700">{like.des}</p>
+                <p className="text-yellow-700">{like.description}</p>
               </div>
             ))}
           </div>

@@ -28,15 +28,15 @@ const BloqPage = () => {
   };
 
   return (
-    <div className="flex md:flex-row flex-col gap-4 p-6">
+    <div className="flex lg:flex-row flex-col gap-4 p-6">
       <div className="md:w-1/2 w-full space-y-6">
         {bloqs.map((bloq) => (
           <div key={bloq.id} className="border rounded-lg p-4 shadow hover:shadow-md">
 
             <Link to="full">
-              <strong className="block text-xl font-semibold text-gray-700 mb-2">{bloq.tit}</strong>
+              <strong className="block text-xl font-semibold text-gray-700 mb-2">{bloq.title}</strong>
               <p className="text-gray-600 mb-4">
-                {bloq.des.length > 100 ? bloq.des.slice(0, 30) + '...' : bloq.des}
+                {bloq.description.length > 100 ? bloq.des.slice(0, 100) + '...' : bloq.description}
               </p>
             </Link>
 
@@ -63,7 +63,7 @@ const BloqPage = () => {
 
       {/* Right panel */}
       <div className="md:w-1/2 w-full border-l pl-4">
-        <Outlet context={{ bloqs, setBloqs, likes, setLikes }}/>
+        <Outlet context={{ bloqs}}/>
       </div>
     </div>
   );
