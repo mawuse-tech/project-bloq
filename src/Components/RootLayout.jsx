@@ -8,6 +8,7 @@ const RootLayout = () => {
 
 const [bloqs, setBloqs] = useState([]);
 const [likes, setLikes] = useState([]);
+const [loading, setLoading] = useState(true)
 
 useEffect(() => {
     const fetchBloqs = async () => {
@@ -20,12 +21,12 @@ useEffect(() => {
        }
     };
     fetchBloqs()
-}, [])
+}, [loading])
 
     return (
         <div>
             <Navbar />
-            <Outlet context={{bloqs, setBloqs, likes, setLikes, API_URL}}/>
+            <Outlet context={{bloqs, setBloqs, likes, setLikes, API_URL, setLoading}}/>
         </div>
     )
 }

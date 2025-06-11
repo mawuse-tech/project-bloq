@@ -1,10 +1,11 @@
 // BloqPage.jsx
+import axios from 'axios';
 import React from 'react';
 import { Link, Outlet, useOutletContext } from 'react-router-dom';
 import 'remixicon/fonts/remixicon.css';
 
 const BloqPage = () => {
-  const { bloqs, setBloqs, likes, setLikes } = useOutletContext();
+  const { bloqs, setBloqs, likes, setLikes, setLoading, API_URL } = useOutletContext();
 
   const toggleLikedIcon = (bloqq) => {
     const isLiked = likes.find(like => like.id === bloqq.id);
@@ -19,11 +20,19 @@ const BloqPage = () => {
 
   const isLikedId = (likeId) => likes.some(item => item.id === likeId);
 
-  const deleteFunction = (bloqId) => {
+  async function deleteFunction(bloqId) {
     const isConfirmed = window.confirm('Delete?');
     if (isConfirmed) {
-      setBloqs(prev => prev.filter(bloq => bloq.id !== bloqId));
-      setLikes(prev => prev.filter(like => like.id !== bloqId));
+      try {
+        setLoading(true);
+        await axios.delete(`${API_URL}/${bloqId}`)
+        // setBloqs(prev => prev.filter(bloq => bloq.id !== bloqId));
+        // setLikes(prev => prev.filter(like => like.id !== bloqId));
+
+        setLoading(false)
+      } catch (error) {
+        console.log(error)
+      }
     }
   };
 
@@ -63,7 +72,7 @@ const BloqPage = () => {
 
       {/* Right panel */}
       <div className="md:w-1/2 w-full border-l pl-4">
-        <Outlet context={{ bloqs}}/>
+        <Outlet context={{ bloqs }} />
       </div>
     </div>
   );

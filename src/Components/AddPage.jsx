@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useOutletContext } from 'react-router';
 
 const AddPage = () => {
-    const { setBloqs, API_URL } = useOutletContext();
+    const { setBloqs, API_URL, setLoading } = useOutletContext();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
@@ -12,10 +12,16 @@ const AddPage = () => {
         e.preventDefault();
         if (title.trim() !== "" && description.trim() !== "") {
             try {
-                const res = await axios.post(API_URL, {title, description});
-                setBloqs(prev => [...prev, res.data])
+                setLoading(true);
+
+                const res = await axios.post(API_URL, { title, description });
+                // setBloqs(prev => [...prev, res.data])
+
                 setTitle("");      // Clear input
                 setDescription("");   // Clear textarea
+
+                setLoading(false);
+
             } catch (error) {
                 console.log(error)
             }
