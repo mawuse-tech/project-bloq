@@ -81,7 +81,7 @@ const BloqPage = () => {
 
       {/* Right panel */}
       <div className="md:w-1/2 w-full border-l pl-4">
-        <Outlet context={{ bloqs, API_URL }} />
+        <Outlet context={{ bloqs, API_URL, setBloqs }} />
       </div>
     </div>
   );
