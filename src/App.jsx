@@ -26,7 +26,7 @@ const router = createBrowserRouter(([
         Component: BloqPage,
         children: [
           {
-            path: "full",
+            path: ":blogId",
             Component: FullBloq
           }
         ]

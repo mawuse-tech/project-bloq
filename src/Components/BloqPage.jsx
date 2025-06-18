@@ -5,20 +5,29 @@ import { Link, Outlet, useOutletContext } from 'react-router-dom';
 import 'remixicon/fonts/remixicon.css';
 
 const BloqPage = () => {
-  const { bloqs, setBloqs, likes, setLikes, setLoading, API_URL } = useOutletContext();
+  const { bloqs, setBloqs, setLoading, API_URL } = useOutletContext();
 
-  const toggleLikedIcon = (bloqq) => {
-    const isLiked = likes.find(like => like.id === bloqq.id);
-    if (isLiked) {
-      setLikes(likes.filter(like => like.id !== bloqq.id));
-      alert('bloq removed from your favorite');
-    } else {
-      setLikes([...likes, bloqq]);
-      alert('bloq added to your favorite');
+  async function toggleFavorite(blogId) {
+    const isLiked = bloqs.find(blog => blog.id === blogId);
+
+    try {
+      const likedBlog = {
+        ...isLiked, favorite: !isLiked.favorite
+      }
+
+      const res = await axios.put(`${API_URL}/${blogId}`, likedBlog)
+
+      setBloqs(prev => prev.map(b => b.id === blogId ? res.data : b))
+
+    } catch (error) {
+      console.log(error)
     }
   };
 
-  const isLikedId = (likeId) => likes.some(item => item.id === likeId);
+
+  const isLikedId = (likeId) =>
+  bloqs.find(item => item.id === likeId)?.favorite === true;
+
 
   async function deleteFunction(bloqId) {
     const isConfirmed = window.confirm('Delete?');
@@ -42,7 +51,7 @@ const BloqPage = () => {
         {bloqs.map((bloq) => (
           <div key={bloq.id} className="border rounded-lg p-4 shadow hover:shadow-md">
 
-            <Link to="full">
+            <Link to={`/bloq/${bloq.id}`} > 
               <strong className="block text-xl font-semibold text-gray-700 mb-2">{bloq.title}</strong>
               <p className="text-gray-600 mb-4">
                 {bloq.description.length > 100 ? bloq.description.slice(0, 100) + '...' : bloq.description}
@@ -51,7 +60,7 @@ const BloqPage = () => {
 
             <div className="flex gap-3">
               <button
-                onClick={() => toggleLikedIcon(bloq)}
+                onClick={() => toggleFavorite(bloq.id)}
                 className="text-sm"
               >
                 {isLikedId(bloq.id)
@@ -72,7 +81,7 @@ const BloqPage = () => {
 
       {/* Right panel */}
       <div className="md:w-1/2 w-full border-l pl-4">
-        <Outlet context={{ bloqs }} />
+        <Outlet context={{ bloqs, API_URL }} />
       </div>
     </div>
   );

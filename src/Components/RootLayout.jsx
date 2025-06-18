@@ -7,7 +7,7 @@ const API_URL = 'http://localhost:3000/bloqs'
 const RootLayout = () => {
 
 const [bloqs, setBloqs] = useState([]);
-const [likes, setLikes] = useState([]);
+const [favorite, setFavorite] = useState(false);
 const [loading, setLoading] = useState(true)
 
 useEffect(() => {
@@ -26,7 +26,7 @@ useEffect(() => {
     return (
         <div>
             <Navbar />
-            <Outlet context={{bloqs, setBloqs, likes, setLikes, API_URL, setLoading}}/>
+            <Outlet context={{bloqs, setBloqs, favorite, setFavorite, API_URL, setLoading}}/>
         </div>
     )
 }

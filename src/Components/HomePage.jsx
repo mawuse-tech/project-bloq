@@ -1,7 +1,9 @@
 import { useOutletContext } from 'react-router';
 
 const HomePage = () => {
-  const { bloqs, likes } = useOutletContext();
+  const { bloqs } = useOutletContext();
+
+  const favoriteBlogs = bloqs.filter(blog => blog.favorite === true);
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
@@ -23,19 +25,19 @@ const HomePage = () => {
 
       <div className="mt-10">
         <h3 className="text-2xl font-bold mb-4"> <i className="ri-heart-fill text-red-700"></i> Your Favorites</h3>
-        {likes.length === 0 ? (
+        {favoriteBlogs.length === 0 ? (
           <p className="text-gray-500">You have no favorites yet.</p>
         ) : (
           <div className="grid md:grid-cols-2 gap-6">
-            {likes.map((like) => (
+            {favoriteBlogs.map((fav) => (
               <div
-                key={like.id}
+                key={fav.id}
                 className="bg-yellow-50 border border-yellow-200 shadow-sm p-4 rounded-md"
               >
                 <h4 className="text-lg font-semibold text-yellow-800 mb-1">
-                  {like.title}
+                  {fav.title}
                 </h4>
-                <p className="text-yellow-700">{like.description}</p>
+                <p className="text-yellow-700">{fav.description}</p>
               </div>
             ))}
           </div>

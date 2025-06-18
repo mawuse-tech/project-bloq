@@ -3,10 +3,9 @@ import React, { useState } from 'react';
 import { useOutletContext } from 'react-router';
 
 const AddPage = () => {
-    const { setBloqs, API_URL, setLoading } = useOutletContext();
+    const { API_URL, setLoading, favorite } = useOutletContext();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -14,7 +13,8 @@ const AddPage = () => {
             try {
                 setLoading(true);
 
-                const res = await axios.post(API_URL, { title, description });
+                const res = await axios.post(API_URL, { title, description, favorite });
+                console.log(res.data)
                 // setBloqs(prev => [...prev, res.data])
 
                 setTitle("");      // Clear input
